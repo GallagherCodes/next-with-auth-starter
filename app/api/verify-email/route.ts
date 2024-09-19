@@ -1,13 +1,27 @@
 import { NextResponse } from "next/server";
 import bcrypt from "bcrypt";
 import { PrismaClient } from "@prisma/client";
+import { z } from "zod";
 
 const prisma = new PrismaClient();
+
+// Zod schema for email and token validation
+const verifyEmailSchema = z.object({
+  email: z.string().email("Invalid email format"),
+  token: z.string().min(1, "Token is required"),
+});
 
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
   const email = searchParams.get("email");
   const token = searchParams.get("token");
+
+  // Validate the query parameters using Zod schema
+  const result = verifyEmailSchema.safeParse({ email, token });
+
+  if (!result.success) {
+    return NextResponse.json({ error: result.error.errors.map(err => err.message) }, { status: 400 });
+  }
 
   // Check if the user's email is already verified
   const user = await prisma.user.findUnique({

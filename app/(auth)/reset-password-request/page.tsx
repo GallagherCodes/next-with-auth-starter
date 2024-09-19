@@ -1,38 +1,18 @@
-"use client";
-
-import { useState } from "react";
+import { GetNewPasswordForm } from "@/app/components/GetNewPasswordForm";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function PasswordResetRequest() {
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    const res = await fetch("/api/password-reset/request", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email }),
-    });
-
-    const data = await res.json();
-    setMessage(data.message || data.error);
-  };
-
   return (
-    <div>
-      <h1>Password Reset Request</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="email"
-          placeholder="Enter your email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <button type="submit">Send Password Reset Link</button>
-      </form>
-      {message && <p>{message}</p>}
+    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+      <Card className="w-full max-w-md p-4 shadow-lg">
+        <CardHeader className="text-center">
+          <CardTitle>Enter Your Email</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <GetNewPasswordForm />
+
+        </CardContent>
+      </Card>
     </div>
   );
 }

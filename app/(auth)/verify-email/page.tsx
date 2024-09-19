@@ -2,6 +2,13 @@
 
 import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
+import { z } from "zod";
+
+// Zod schema for email and token validation
+const verifyEmailSchema = z.object({
+  email: z.string().email("Invalid email format"),
+  token: z.string().min(1, "Token is required"),
+});
 
 export default function VerifyEmailPage() {
   const [message, setMessage] = useState("");
@@ -11,7 +18,14 @@ export default function VerifyEmailPage() {
   const token = searchParams.get("token");
 
   useEffect(() => {
-    if (!email || !token) return;  // Prevent unnecessary requests if query parameters are missing
+    // Validate the email and token parameters using Zod
+    const result = verifyEmailSchema.safeParse({ email, token });
+
+    if (!result.success) {
+      setMessage(result.error.errors.map(err => err.message).join(", "));
+      setLoading(false); // Stop loading as we already have validation errors
+      return;
+    }
 
     const verifyEmail = async () => {
       try {

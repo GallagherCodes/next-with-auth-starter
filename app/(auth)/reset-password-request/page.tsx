@@ -1,4 +1,4 @@
-import { GetNewPasswordForm } from "@/app/components/GetNewPasswordForm";
+import { GetNewPasswordForm } from "@/components/Auth/GetNewPasswordForm";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function PasswordResetRequest() {
@@ -10,7 +10,6 @@ export default function PasswordResetRequest() {
         </CardHeader>
         <CardContent>
           <GetNewPasswordForm />
-
         </CardContent>
       </Card>
     </div>

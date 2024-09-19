@@ -31,3 +31,10 @@ export const verifyEmailSchema = z.object({
   email: z.string().email("Invalid email format"),
   token: z.string().min(1, "Token is required"),
 });
+
+
+export const userInfoSchema = z.object({
+  name: z.string().min(1, "Name is required"),
+  email: z.string().email("Invalid email address"),
+});
+

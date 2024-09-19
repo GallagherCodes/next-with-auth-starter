@@ -1,4 +1,4 @@
-import { SetNewPasswordForm } from "@/app/components/SetNewPasswordForm";
+import { SetNewPasswordForm } from "@/components/Auth/SetNewPasswordForm";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 

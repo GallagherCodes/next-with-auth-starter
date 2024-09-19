@@ -4,16 +4,13 @@ import { NavigationMenu, NavigationMenuList, NavigationMenuItem, NavigationMenuL
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { useSession, signOut } from "next-auth/react";
-import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-
-// Utility function to get the first letter of a name
-const getInitials = (name: string) => {
-    return name ? name.charAt(0).toUpperCase() : "U"; // Default to 'U' if no name is provided
-};
+import { NavUserCard } from "./NavUserCard";
+import { useUser } from "@/context/UserContext";
 
 export function Navbar() {
     const { data: session } = useSession(); // Get session data to check if user is logged in
-
+    const {user} = useUser()
+ 
     return (
         <div className="flex justify-between items-center p-4 bg-white shadow-md">
             {/* Left aligned links */}
@@ -52,27 +49,8 @@ export function Navbar() {
             <div className="flex items-center space-x-4">
                 {session ? (
                     <>
-                        {/* User Info Card with Dynamic Circle Avatar */}
-                        <Card className="flex items-center space-x-2 p-1">
-                            {/* If no image, show the dynamic avatar */}
-                            {session.user?.image ? (
-                                <img
-                                    src={session.user.image}
-                                    alt="User Avatar"
-                                    className="w-8 h-8 rounded-full"
-                                />
-                            ) : (
-                                <div className="flex items-center justify-center w-8 h-8 rounded-full bg-blue-500 text-white text-lg font-semibold">
-                                    {getInitials(session.user?.name || "Guest")}
-                                </div>
-                            )}
-
-                            <CardHeader className="p-0">
-                                <CardTitle className="text-sm">{session.user?.name || "Guest"}</CardTitle>
-                                <CardDescription className="text-xs text-gray-500">{session.user?.email || "guest@example.com"}</CardDescription>
-                            </CardHeader>
-                        </Card>
-
+                    <NavUserCard user={user} />
+                        
                         {/* Logout Button */}
                         <Button onClick={() => signOut()} className="bg-red-600 text-white hover:bg-red-700">
                             Logout

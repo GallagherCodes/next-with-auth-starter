@@ -1,5 +1,5 @@
-import { GoogleLoginButton } from "@/app/components/GoogleLoginButton";
-import { LoginForm } from "@/app/components/LoginForm";
+import { GoogleLoginButton } from "@/components/Auth/GoogleLoginButton";
+import { LoginForm } from "@/components/Auth/LoginForm";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";

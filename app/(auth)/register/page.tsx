@@ -1,5 +1,5 @@
-import { GoogleLoginButton } from "@/app/components/GoogleLoginButton";
-import { RegisterForm } from "@/app/components/RegisterForm";
+import { GoogleLoginButton } from "@/components/Auth/GoogleLoginButton";
+import { RegisterForm } from "@/components/Auth/RegisterForm";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function RegisterPage() { 

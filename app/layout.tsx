@@ -3,7 +3,8 @@ import './globals.css'
 
 // Import the SessionProvider from next-auth/react
 import SessionProviderWrapper from "./components/SessionProviderWrapper";
-import { Navbar } from '@/components/NavBar';
+import { UserProvider } from '@/context/UserContext';
+import { Navbar } from '@/components/Nav/NavBar';
 // This should wrap your entire app component tree
 export default function RootLayout({
   children,
@@ -15,8 +16,10 @@ export default function RootLayout({
 
       <body>
         <SessionProviderWrapper>
-          <Navbar />
-          {children}
+          <UserProvider>
+            <Navbar />
+            {children}
+          </UserProvider>
         </SessionProviderWrapper>
       </body>
     </html>

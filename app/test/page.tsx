@@ -1,8 +1,8 @@
 "use client";
-import { SetNewPasswordForm } from "../components/SetNewPasswordForm";
-import { GetNewPasswordForm } from "../components/GetNewPasswordForm";
-import { LoginForm } from "../components/LoginForm";
-import { RegisterForm } from "../components/RegisterForm";
+import { SetNewPasswordForm } from "../../components/Auth/SetNewPasswordForm";
+import { GetNewPasswordForm } from "../../components/Auth/GetNewPasswordForm";
+import { LoginForm } from "../../components/Auth/LoginForm";
+import { RegisterForm } from "../../components/Auth/RegisterForm";
 import { useSession } from "next-auth/react";
 
 export default function Test() {

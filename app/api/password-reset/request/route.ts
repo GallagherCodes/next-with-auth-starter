@@ -2,12 +2,28 @@ import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
 import { v4 as uuidv4 } from "uuid";
+import { z } from "zod";
 
 const prisma = new PrismaClient();
 
+// Zod schema for email validation
+const resetPasswordSchema = z.object({
+  email: z.string().email("Invalid email format"),
+});
+
 export async function POST(req: Request) {
   try {
-    const { email } = await req.json();
+    const body = await req.json();
+
+    // Validate the request body using the Zod schema
+    const result = resetPasswordSchema.safeParse(body);
+
+    if (!result.success) {
+      // Return validation errors if validation fails
+      return NextResponse.json({ error: result.error.errors.map(err => err.message) }, { status: 400 });
+    }
+
+    const { email } = result.data;
 
     // Check if the user exists
     const user = await prisma.user.findUnique({ where: { email } });
@@ -38,6 +54,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ message: "Password reset link sent" });
   } catch (error) {
+    console.error("Error sending password reset link:", error);
     return NextResponse.json({ error: "Something went wrong" }, { status: 500 });
   }
 }

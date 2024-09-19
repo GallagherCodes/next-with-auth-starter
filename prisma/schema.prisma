@@ -14,13 +14,14 @@ generator client {
 }
 
 model User {
-  id            Int      @id @default(autoincrement())
+  id            String   @id @default(cuid())
   name          String?
-  email         String   @unique
-  password      String?  // Optional if using OAuth providers like Google
+  email         String?  @unique
   emailVerified DateTime?
   image         String?
+  password      String?
 }
+
 
 model VerificationToken {
   identifier String

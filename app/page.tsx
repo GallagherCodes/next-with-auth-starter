@@ -1,6 +1,7 @@
 "use client";
 
 import { useSession } from "next-auth/react";
+import { Navbar } from "@/components/NavBar";
 
 export default function HomePage() {
   const { data: session, status } = useSession();
